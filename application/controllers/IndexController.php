@@ -16,13 +16,15 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
-        $db = new Phly_Couch();
-        //Zend_Debug::dump($db->allDbs());
-        $db->setDb('test-log');
-        $doc = new Phly_Couch_Document(array("key"=>"value"));
-        $result = $db->docSave($doc);
-        Zend_Debug::dump($result);
+//        // action body
+//        $db = new Phly_Couch(array("host"=>"localhost", "port"=>"5984", "db"=>"test-log"));
+//        $doc = new Phly_Couch_Document(array("key"=>"value"));
+//        $result = $db->docSave($doc);
+//        // return array ok, id, rev
+//        Zend_Debug::dump($result->getInfo());
+          $logger = new Zend_Log();
+          $logger->addWriter(new App_ZendLogWriterCouchDb());
+          $logger->log("Testovani logovani", Zend_Log::DEBUG);
     }
 
 
