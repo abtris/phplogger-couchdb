@@ -12,7 +12,7 @@ require_once 'Zend/Log/Writer/Abstract.php';
  * ZendLogWriterCouchDb
  * @throws Zend_Log_Exception
  */
-class App_ZendLogWriterCouchDb extends Zend_Log_Writer_Abstract
+class App_Log_Writer_CouchDb extends Zend_Log_Writer_Abstract
 {
     /**
      * Db

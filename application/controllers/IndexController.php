@@ -23,7 +23,7 @@ class IndexController extends Zend_Controller_Action
 //        // return array ok, id, rev
 //        Zend_Debug::dump($result->getInfo());
           $logger = new Zend_Log();
-          $logger->addWriter(new App_ZendLogWriterCouchDb());
+          $logger->addWriter(new App_Log_Writer_CouchDb());
           $logger->log("Testovani logovani", Zend_Log::DEBUG);
     }
 
