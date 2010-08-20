@@ -34,9 +34,15 @@ class App_Log_Writer_CouchDb extends Zend_Log_Writer_Abstract
      * @param array $params
      * @return void
      */
-    public function __construct(array $params = array())
+    public function __construct($dbname, $options = null)
     {
-        $this->_db = new Phly_Couch(array("host"=>"localhost", "port"=>"5984", "db"=>"test-log"));
+        if (is_null($options)) {
+            $options['host'] = "localhost";
+            $options['port'] = "5984";
+        } 
+        $options['db'] = $dbname;
+        
+        $this->_db = new Phly_Couch($options);
     }
 
     static public function factory($config)                                                                                                                 
