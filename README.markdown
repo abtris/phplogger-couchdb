@@ -8,18 +8,18 @@ For logs are nosql database is better than RBMS.
 - map functions (all log messages)
 
 
-    function(doc) {
+        function(doc) {
           emit(doc.priorityName,[doc.timestamp,doc.message]);
-    }
+        }
 
 - map function by priorityName (save as log_by_prior)
 
 
-    function(doc) {
-      if (doc.priorityName) {
+        function(doc) {
+          if (doc.priorityName) {
              emit(doc.priorityName, [doc.timestamp, doc.message]);
-      }
-    }
+          }
+        }
 
 -  call by using
 
