@@ -1,0 +1,30 @@
+<style type="text/css">
+    #logger  {
+        width:800px;
+        margin: 0 auto;
+        border-collapse: collapse;
+        font-family: Arial, Helvetica, sans-serif; 
+    }
+    #logger td, #logger th {
+        border: 1px solid black;
+        padding: 4px;
+    }
+    .key { text-align: center; width: 150px; }
+
+</style>
+<?php
+echo "<table id='logger'>";
+    echo "<tr>";
+    echo "<th>Priority Name</th>";
+    echo "<th>Timestamp</th>";
+    echo "<th>Message</th>";
+    echo "</tr>";
+foreach ($this->docs['docs'] as $doc) {
+    echo "<tr>";
+    echo "<td class='key'>".$doc['key']."</td>";
+    foreach ($doc['value'] as $val) {
+        echo "<td>".$val."</td>";
+    }
+    echo "</tr>";
+}
+echo "</table>";
