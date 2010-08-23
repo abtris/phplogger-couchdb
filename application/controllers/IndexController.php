@@ -19,7 +19,8 @@ class IndexController extends Zend_Controller_Action
              $formData = $this->getRequest()->getPost();
              if ($form->isValid($formData)) {
                  $filterValue = $form->getValue('filter');
-                 if (empty($filterValue)) $filterValue = null;
+                 Zend_Debug::dump($filterValue);
+                 if (empty($filterValue) && $filterValue===0) $filterValue = null;
                  $result = $db->view('logger','log_by_prior', $filterValue, array("db"=>$this->_config->couchdb->db));
              } else {
              $form->populate($formData);
@@ -45,7 +46,7 @@ class IndexController extends Zend_Controller_Action
             '[%module%] [%controller%] %message%';                                                                                                
           $formatter = new Zend_Log_Formatter_Simple($format);
           
-          $writer = new App_Log_Writer_CouchDb($this->_config->couchdb->db);
+          $writer = new App_Log_Writer_CouchDb($this->_config->couchdb->db, $this->_config->couchdb);
           $writer->setFormatter($formatter);
 
           $logger->addWriter($writer);

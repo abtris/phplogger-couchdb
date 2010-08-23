@@ -513,14 +513,15 @@ class Phly_Couch
         $param = '';
         if (!is_null($key)) {
             if (is_numeric($key)) {
-                $param = '/?key='.$key;
+                $param = '?key='.$key;
             } elseif (is_string($key)) {
-                $param = '/?key=%22'.$key.'%22';
+                $param = '?key=%22'.$key.'%22';
             } else {
                 throw new Phly_Couch_Exception('Wrong key type!');
             }
-        } 
-            $response = $this->_prepareAndSend($db . '/_design/'.$design.'/_view/'.$view.'/'.$param, 'GET', $options);
+        }
+            $q = $db . '/_design/'.$design.'/_view/'.$view.'/'.$param;
+            $response = $this->_prepareAndSend($q, 'GET', $options);
         
         if (!$response->isSuccessful()) {
             require_once 'Phly/Couch/Exception.php';

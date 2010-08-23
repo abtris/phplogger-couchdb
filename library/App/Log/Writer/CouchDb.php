@@ -39,9 +39,8 @@ class App_Log_Writer_CouchDb extends Zend_Log_Writer_Abstract
         if (is_null($options)) {
             $options['host'] = "localhost";
             $options['port'] = "5984";
-        } 
-        $options['db'] = $dbname;
-        
+            $options['db'] = $dbname;
+        }
         $this->_db = new Phly_Couch($options);
     }
 
