@@ -12,6 +12,15 @@
     .key { text-align: center; width: 150px; }
 
 </style>
+
+<?php if (count($this->messages)) : ?>
+<ul id="messages">
+<?php foreach ($this->messages as $message) : ?>
+    <li><?php echo $this->escape($message); ?></li>
+<?php endforeach; ?>
+</ul>
+<?php endif; ?>
+
 <?php
 // filter
 echo $this->form;

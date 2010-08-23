@@ -28,15 +28,25 @@ class IndexController extends Zend_Controller_Action
             $result = $db->view('log_by_prior','log_by_prior', null, array("db"=>$this->_config->couchdb->db));         
          }         
          $this->view->docs = $result->toArray();
-
+         $this->view->messages = $this->_helper->flashMessenger->getMessages();
     }
 
     public function logAction()
     {
           $logger = new Zend_Log();
-          $logger->addWriter(new App_Log_Writer_CouchDb($this->_config->couchdb->db));
-          echo "Logged action";
-          $logger->log("Testovani chyba", Zend_Log::ERR);
+          $format = '%timestamp% %priorityName% (%priority%): '.
+            '[%module%] [%controller%] %message%';                                                                                                
+          $formatter = new Zend_Log_Formatter_Simple($format);
+          
+          $writer = new App_Log_Writer_CouchDb($this->_config->couchdb->db);
+          $writer->setFormatter($formatter);
+
+          $logger->addWriter($writer);
+          $logger->setEventItem('module', $this->getRequest()->getModuleName());
+          $logger->setEventItem('controller', $this->getRequest()->getControllerName());                        
+          $logger->log("Testovani chyba", Zend_Log::NOTICE);
+          $this->_helper->flashMessenger->addMessage('Log item saved');
+          $this->_helper->redirector('index');
     }
 
 
