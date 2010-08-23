@@ -31,6 +31,8 @@ echo "<table id='logger'>";
     echo "<th>Priority Name</th>";
     echo "<th>Timestamp</th>";
     echo "<th>Message</th>";
+    echo "<th>Module</th>";
+    echo "<th>Controller</th>";
     echo "</tr>";
 foreach ($this->docs['docs'] as $doc) {
     echo "<tr>";
@@ -41,3 +43,8 @@ foreach ($this->docs['docs'] as $doc) {
     echo "</tr>";
 }
 echo "</table>";
+echo "<br />";
+echo "Create some log messages by this links: ";
+foreach ($this->priorities as $k => $v) {
+    echo "<a href='".$this->url(array("controller"=>"index", "action"=>"log", "id"=>$k))."'>$v</a> ";
+}

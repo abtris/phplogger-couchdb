@@ -29,10 +29,17 @@ class IndexController extends Zend_Controller_Action
          }         
          $this->view->docs = $result->toArray();
          $this->view->messages = $this->_helper->flashMessenger->getMessages();
+        
+         $logger = new Zend_Log();
+         $r = new ReflectionClass($logger);
+         $this->view->priorities = array_flip($r->getConstants());
+
     }
 
     public function logAction()
     {
+          $id = $this->_request->getParam('id', 0);  
+
           $logger = new Zend_Log();
           $format = '%timestamp% %priorityName% (%priority%): '.
             '[%module%] [%controller%] %message%';                                                                                                
@@ -44,7 +51,7 @@ class IndexController extends Zend_Controller_Action
           $logger->addWriter($writer);
           $logger->setEventItem('module', $this->getRequest()->getModuleName());
           $logger->setEventItem('controller', $this->getRequest()->getControllerName());                        
-          $logger->log("Testovani chyba", Zend_Log::NOTICE);
+          $logger->log("Testovani chyba", $id);
           $this->_helper->flashMessenger->addMessage('Log item saved');
           $this->_helper->redirector('index');
     }
