@@ -16,8 +16,8 @@ For logs are nosql database is better than RBMS.
 
 
         function(doc) {
-          if (doc.priorityName) {
-             emit(doc.priorityName, [doc.timestamp, doc.message]);
+          if (doc.priority) {
+             emit(doc.priority, [doc.priorityName, doc.timestamp, doc.message]);
           }
         }
 
