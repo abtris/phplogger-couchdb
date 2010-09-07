@@ -32,6 +32,14 @@ class App_Form_Filter extends Zend_Form
             'multioptions' => array(null => 'All') + $this->_priorities,
         ));
 
+       $this->addElement('text', 'datefrom', array(
+            'label' => 'Date From'
+       ));
+
+       $this->addElement('text', 'dateto', array(
+            'label' => 'Date To'
+       ));
+
         $this->addElement('submit', 'send', array(
 
         ));

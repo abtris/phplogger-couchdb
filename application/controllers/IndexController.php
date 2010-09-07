@@ -19,9 +19,17 @@ class IndexController extends Zend_Controller_Action
              $formData = $this->getRequest()->getPost();
              if ($form->isValid($formData)) {
                  $filterValue = $form->getValue('filter');
-                 Zend_Debug::dump($filterValue);
-                 if (empty($filterValue) && $filterValue===0) $filterValue = null;
+                 $dateFrom = $form->getValue('datefrom');
+                 $dateTo = $form->getValue('dateto');
+                 if (empty($filterValue) || $filterValue===0) $filterValue = null;
+                 if (empty($dateFrom)) $dateFrom = null;
+                 if (empty($dateTo)) $dataTo = null;
+                 if (!is_null($dateFrom) && !is_null($dateTo)) {
+                 $result = $db->view('logger','log_by_timestamp', array($dateFrom, $dateTo), array("db"=>$this->_config->couchdb->db));
+                 } else {
                  $result = $db->view('logger','log_by_prior', $filterValue, array("db"=>$this->_config->couchdb->db));
+                 }
+
              } else {
              $form->populate($formData);
              }

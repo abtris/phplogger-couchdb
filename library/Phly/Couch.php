@@ -512,10 +512,23 @@ class Phly_Couch
         $db = $this->_verifyDb($db);
         $param = '';
         if (!is_null($key)) {
+            // simple key
             if (is_numeric($key)) {
                 $param = '?key='.$key;
             } elseif (is_string($key)) {
                 $param = '?key=%22'.$key.'%22';
+            // for intervals keys    
+            } elseif (is_array($key) && count($key)==2) {
+                if (is_numeric($key[0])) {
+                    $param = '?startkey='.$key[0];
+                } else {
+                    $param = '?startkey=%22'.$key[0].'%22';
+                }
+                if (is_numeric($key[1])) {
+                    $param .= '&endkey='.$key[1];
+                } else {
+                    $param .= '&endkey=%22'.$key[1].'%22';
+                }
             } else {
                 throw new Phly_Couch_Exception('Wrong key type!');
             }
